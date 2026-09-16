@@ -20,7 +20,20 @@ const server = http.createServer((req, res) => {
 
   }
 
-  else if (req.url === "/" && req.method === "PUT") {
+  else if (req.url.startsWith("/products/") === "/" && req.method === "PUT") {
+    res.url.split('/').pop();
+    console.log('update product id:',productID);
+
+    let body='';
+    req.on('data',(chunk)=>{
+      body+=chunk;
+    });
+    req.on("end",()=>{
+    product.id=productID;
+    res.statusCode = 200;
+    res.end(JSON.stringify({msg:'product Updated ',product}));
+    });
+
     res.statusCode = 200;
     res.end("PUT Request");
   }
