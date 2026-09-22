@@ -9,5 +9,16 @@ export const getAllProducts = () => {
     return product;
 }
 export const addProduct = () =>{
-    
-}
+    item.id = nextID;
+    nextID++;
+    product.push(item);
+    return item;
+};
+export const deleteProduct =(pid)=> {
+ const item = product.findIndex((prd)=>prd.id === pid);
+ if(item == -1)
+    return false;
+product.slice(item,1)
+console.log('products remaining:',product);
+return true;
+};
