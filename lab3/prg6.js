@@ -9,12 +9,11 @@ import {
 } from "./products.js";
 
 const server = http.createServer((req, res) => {
-  // GET all products
   if (req.url === "/api/v1/products" && req.method === "GET") {
     res.statusCode = 200;
-    res.setHeader("Content-Type", "application/json");
-
     const data = getAllProducts();
+
+    res.setHeader("Content-Type", "application/json");
 
     res.end(
       JSON.stringify({
@@ -24,7 +23,6 @@ const server = http.createServer((req, res) => {
     );
   }
 
-  // POST - Add product
   else if (req.url === "/api/v1/products" && req.method === "POST") {
     let body = "";
 
@@ -48,12 +46,11 @@ const server = http.createServer((req, res) => {
     });
   }
 
-  // PUT - Update product
   else if (
     req.url.startsWith("/api/v1/products/") &&
     req.method === "PUT"
   ) {
-    const productID = req.url.split("/").pop();
+    const productID = Number(req.url.split("/").pop());
 
     console.log("Update Product id:", productID);
 
@@ -64,45 +61,60 @@ const server = http.createServer((req, res) => {
     });
 
     req.on("end", () => {
-      const product = JSON.parse(body);
-      product.id = productID;
+      console.log("BODY:", body);
 
-      const updatedPrd = updateProduct(productID, product);
+      try {
+        const product = JSON.parse(body);
 
-      res.setHeader("Content-Type", "application/json");
+        product.id = productID;
 
-      if (!updatedPrd) {
-        res.statusCode = 404;
+        const updatedPrd = updateProduct(productID, product);
+
+        res.setHeader("Content-Type", "application/json");
+
+        if (!updatedPrd) {
+          res.statusCode = 404;
+
+          res.end(
+            JSON.stringify({
+              msg: `id ${productID} not found`,
+            }),
+          );
+        } else {
+          res.statusCode = 200;
+
+          res.end(
+            JSON.stringify({
+              msg: "product updated",
+              data: updatedPrd,
+            }),
+          );
+        }
+      } catch (error) {
+        console.log(error);
+
+        res.statusCode = 400;
+        res.setHeader("Content-Type", "application/json");
+
         res.end(
           JSON.stringify({
-            msg: `id ${productID} not found`,
-          }),
-        );
-      } else {
-        res.statusCode = 200;
-        res.end(
-          JSON.stringify({
-            msg: "product updated",
-            data: updatedPrd,
+            msg: "Invalid JSON body",
           }),
         );
       }
     });
   }
 
-  // DELETE - Delete product
   else if (
     req.url.startsWith("/api/v1/products/") &&
     req.method === "DELETE"
   ) {
     const pid = Number(req.url.split("/").pop());
 
-    const deleted = deleteProduct(pid);
-
-    res.setHeader("Content-Type", "application/json");
-
-    if (deleted) {
+    if (deleteProduct(pid)) {
       res.statusCode = 200;
+      res.setHeader("Content-Type", "application/json");
+
       res.end(
         JSON.stringify({
           msg: "item deleted",
@@ -110,6 +122,8 @@ const server = http.createServer((req, res) => {
       );
     } else {
       res.statusCode = 404;
+      res.setHeader("Content-Type", "application/json");
+
       res.end(
         JSON.stringify({
           msg: `product with id ${pid} not found`,
@@ -118,7 +132,6 @@ const server = http.createServer((req, res) => {
     }
   }
 
-  // GET product by ID
   else if (
     req.url.startsWith("/api/v1/products/") &&
     req.method === "GET"
@@ -131,6 +144,7 @@ const server = http.createServer((req, res) => {
 
     if (product) {
       res.statusCode = 200;
+
       res.end(
         JSON.stringify({
           data: product,
@@ -138,6 +152,7 @@ const server = http.createServer((req, res) => {
       );
     } else {
       res.statusCode = 404;
+
       res.end(
         JSON.stringify({
           msg: `product with id ${pid} not found`,
@@ -146,7 +161,6 @@ const server = http.createServer((req, res) => {
     }
   }
 
-  // Invalid route
   else {
     res.statusCode = 404;
     res.end("request not found");
