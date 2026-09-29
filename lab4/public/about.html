@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Aura Mobile Experience</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                        },
+                        accent: {
+                            500: '#ec4899',
+                            600: '#d946ef',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        
+        /* Glassmorphism effects */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .dark .glass {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        /* Gradient text */
+        .text-gradient {
+            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Glow Animations */
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob {
+            animation: blob 7s infinite;
+        }
+        .animation-delay-2000 { animation-delay: 2s; }
+        .animation-delay-4000 { animation-delay: 4s; }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); }
+        ::-webkit-scrollbar-thumb { background: #6366f1; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-300 min-h-screen selection:bg-brand-500 selection:text-white">
+
+    <!-- Header / Navbar -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass border-b border-slate-200/50 dark:border-slate-800/50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="index.html" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-500 to-accent-500 flex items-center justify-center text-white shadow-lg shadow-brand-500/30 group-hover:scale-105 transition-transform duration-300">
+                    <i class="fa-solid font-bold text-xl fa-bolt"></i>
+                </div>
+                <span class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">Aura<span class="text-brand-500">.</span></span>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-8 font-medium text-slate-600 dark:text-slate-300">
+                <a href="index.html" class="hover:text-brand-500 dark:hover:text-brand-500 transition-colors">Home</a>
+                <a href="index.html#features" class="hover:text-brand-500 dark:hover:text-brand-500 transition-colors">Features</a>
+                <a href="about.html" class="text-brand-600 dark:text-brand-400 font-semibold">About Us</a>
+                <a href="#team" class="hover:text-brand-500 dark:hover:text-brand-500 transition-colors">Our Team</a>
+                <a href="#contact" class="hover:text-brand-500 dark:hover:text-brand-500 transition-colors">Contact</a>
+            </nav>
+
+            <!-- Action Buttons & Theme Switcher -->
+            <div class="hidden md:flex items-center gap-4">
+                <button id="themeToggle" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" aria-label="Toggle dark mode">
+                    <i class="fa-solid fa-moon dark:hidden text-lg"></i>
+                    <i class="fa-solid fa-sun hidden dark:block text-lg text-amber-400"></i>
+                </button>
+
+                <a href="#download" class="px-5 py-2.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold shadow-md hover:bg-slate-800 dark:hover:bg-slate-100 transition-all hover:shadow-lg hover:-translate-y-0.5">
+                    Get App
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="flex items-center gap-2 md:hidden">
+                <button id="themeToggleMobile" class="p-2 rounded-lg text-slate-600 dark:text-slate-300">
+                    <i class="fa-solid fa-moon dark:hidden"></i>
+                    <i class="fa-solid fa-sun hidden dark:block text-amber-400"></i>
+                </button>
+                <button id="mobileMenuBtn" class="p-2 rounded-lg text-slate-600 dark:text-slate-300 focus:outline-none">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Navigation -->
+        <div id="mobileMenu" class="hidden md:hidden border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 px-4 pt-2 pb-6 space-y-3">
+            <a href="index.html" class="block py-2 text-slate-600 dark:text-slate-300 font-medium">Home</a>
+            <a href="index.html#features" class="block py-2 text-slate-600 dark:text-slate-300 font-medium">Features</a>
+            <a href="about.html" class="block py-2 text-brand-600 dark:text-brand-400 font-semibold">About Us</a>
+            <a href="#team" class="block py-2 text-slate-600 dark:text-slate-300 font-medium">Our Team</a>
+            <a href="#download" class="block w-full text-center py-3 rounded-xl bg-brand-600 text-white font-semibold shadow">
+                Download Now
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-brand-500/20 rounded-full filter blur-3xl opacity-70 animate-blob pointer-events-none"></div>
+        <div class="absolute top-1/3 left-1/3 w-80 h-80 bg-accent-500/20 rounded-full filter blur-3xl opacity-70 animate-blob animation-delay-2000 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-50 dark:bg-brand-900/40 border border-brand-200 dark:border-brand-700/50 text-brand-600 dark:text-brand-300 text-xs sm:text-sm font-semibold mb-6 shadow-sm">
+                <i class="fa-solid fa-sparkles text-brand-500"></i> Our Story & Vision
+            </div>
+
+            <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight max-w-4xl mx-auto mb-6">
+                Building the Future of <span class="text-gradient">Mobile Experience</span>.
+            </h1>
+
+            <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto mb-16 leading-relaxed">
+                We started Aura with a simple premise: everyday digital productivity should be effortless, beautifully designed, and powered by intelligent context. Today, we empower hundreds of thousands of users globally.
+            </p>
+
+            <!-- Key Metric Stats Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+                <div class="p-6 rounded-3xl bg-white dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 shadow-xl backdrop-blur-sm">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mb-1">500K+</div>
+                    <div class="text-xs sm:text-sm text-slate-500 font-medium">Active Daily Users</div>
+                </div>
+                <div class="p-6 rounded-3xl bg-white dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 shadow-xl backdrop-blur-sm">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-brand-500 mb-1">120+</div>
+                    <div class="text-xs sm:text-sm text-slate-500 font-medium">Countries Reached</div>
+                </div>
+                <div class="p-6 rounded-3xl bg-white dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 shadow-xl backdrop-blur-sm">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-amber-400 mb-1 flex items-center justify-center gap-1">
+                        4.9 <i class="fa-solid fa-star text-2xl"></i>
+                    </div>
+                    <div class="text-xs sm:text-sm text-slate-500 font-medium">App Store Rating</div>
+                </div>
+                <div class="p-6 rounded-3xl bg-white dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 shadow-xl backdrop-blur-sm">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-accent-500 mb-1">45+</div>
+                    <div class="text-xs sm:text-sm text-slate-500 font-medium">Team Innovators</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Company Journey Timeline Section -->
+    <section class="py-20 bg-slate-100/50 dark:bg-slate-900/50 relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold text-brand-600 dark:text-brand-400 tracking-wider uppercase mb-2">Milestones</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">How Aura Evolved</p>
+            </div>
+
+            <!-- Vertical Timeline Structure -->
+            <div class="relative border-l-2 border-brand-500/30 dark:border-brand-500/20 ml-4 md:ml-1/2 space-y-12">
+                <!-- Timeline item 1 -->
+                <div class="relative pl-8 md:pl-0 md:flex md:items-center group">
+                    <div class="absolute -left-[9px] top-1.5 md:left-1/2 md:-translate-x-1/2 w-4 h-4 rounded-full bg-brand-500 ring-4 ring-slate-100 dark:ring-slate-900"></div>
+                    <div class="md:w-1/2 md:pr-12 md:text-right">
+                        <span class="text-xs font-bold text-brand-500 uppercase tracking-wider">Q1 2023</span>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-1">The Spark & Prototype</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mt-2">
+                            A small team of 3 engineers sketched the initial architecture to solve mobile task fragmentation and cloud latency.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline item 2 -->
+                <div class="relative pl-8 md:pl-0 md:flex md:items-center group">
+                    <div class="absolute -left-[9px] top-1.5 md:left-1/2 md:-translate-x-1/2 w-4 h-4 rounded-full bg-accent-500 ring-4 ring-slate-100 dark:ring-slate-900"></div>
+                    <div class="md:w-1/2 md:ml-auto md:pl-12">
+                        <span class="text-xs font-bold text-accent-500 uppercase tracking-wider">Q3 2023</span>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-1">Closed Beta & Seed Funding</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mt-2">
+                            Welcomed 5,000 early adopters, secured $3.5M in seed funding, and introduced our real-time synchronization engine.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline item 3 -->
+                <div class="relative pl-8 md:pl-0 md:flex md:items-center group">
+                    <div class="absolute -left-[9px] top-1.5 md:left-1/2 md:-translate-x-1/2 w-4 h-4 rounded-full bg-emerald-500 ring-4 ring-slate-100 dark:ring-slate-900"></div>
+                    <div class="md:w-1/2 md:pr-12 md:text-right">
+                        <span class="text-xs font-bold text-emerald-500 uppercase tracking-wider">Q2 2024</span>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-1">Aura 1.0 Global Launch</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mt-2">
+                            Released on iOS and Android. Reached #1 in Productivity in 18 countries within the first month.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline item 4 -->
+                <div class="relative pl-8 md:pl-0 md:flex md:items-center group">
+                    <div class="absolute -left-[9px] top-1.5 md:left-1/2 md:-translate-x-1/2 w-4 h-4 rounded-full bg-amber-500 ring-4 ring-slate-100 dark:ring-slate-900"></div>
+                    <div class="md:w-1/2 md:ml-auto md:pl-12">
+                        <span class="text-xs font-bold text-amber-500 uppercase tracking-wider">Present & Beyond</span>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-1">AI 2.0 & Next Gen Experience</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mt-2">
+                            Integrating contextual on-device AI intelligence with zero-knowledge privacy guarantees.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Values Section -->
+    <section class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold text-brand-600 dark:text-brand-400 tracking-wider uppercase mb-2">Our Principles</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">Core Values Driving Aura</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Value 1 -->
+                <div class="p-8 rounded-3xl bg-white dark:bg-slate-800 border border-slate-200/70 dark:border-slate-700/60 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-2xl bg-brand-500/10 text-brand-500 flex items-center justify-center text-xl mb-6">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">User First Always</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Every feature starts with solving real user friction. We prioritize clarity over complexity.
+                    </p>
+                </div>
+
+                <!-- Value 2 -->
+                <div class="p-8 rounded-3xl bg-white dark:bg-slate-800 border border-slate-200/70 dark:border-slate-700/60 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-2xl bg-accent-500/10 text-accent-500 flex items-center justify-center text-xl mb-6">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Relentless Innovation</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                        We push the boundaries of mobile performance, edge AI computation, and smooth UI frame rates.
+                    </p>
+                </div>
+
+                <!-- Value 3 -->
+                <div class="p-8 rounded-3xl bg-white dark:bg-slate-800 border border-slate-200/70 dark:border-slate-700/60 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-xl mb-6">
+                        <i class="fa-solid fa-user-shield"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Privacy by Design</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Your personal data is yours alone. End-to-end encryption and zero tracking are foundational.
+                    </p>
+                </div>
+
+                <!-- Value 4 -->
+                <div class="p-8 rounded-3xl bg-white dark:bg-slate-800 border border-slate-200/70 dark:border-slate-700/60 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-xl mb-6">
+                        <i class="fa-solid fa-pen-nib"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Craft & Craftsmanship</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Micro-interactions, haptics, typography, and speed are crafted with obsessive attention to detail.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive App Impact Simulator Widget -->
+    <section class="py-16 bg-slate-100/50 dark:bg-slate-900/50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-8 shadow-2xl">
+                <div class="text-center max-w-xl mx-auto mb-8">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 dark:bg-brand-900/40 text-brand-600 dark:text-brand-300 text-xs font-semibold mb-2">
+                        <i class="fa-solid fa-calculator"></i> Interactive Growth Calculator
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Estimate Your Team's Productivity Boost</h3>
+                    <p class="text-xs text-slate-500 mt-1">See how Aura scales productivity as your user base or team grows.</p>
+                </div>
+
+                <!-- Control Sliders -->
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-2 text-slate-700 dark:text-slate-300">
+                                <span>Team / User Size</span>
+                                <span id="teamCountVal" class="text-brand-500 font-extrabold text-sm">25 members</span>
+                            </div>
+                            <input type="range" id="teamSlider" min="5" max="500" value="25" step="5" class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-brand-500">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-2 text-slate-700 dark:text-slate-300">
+                                <span>Avg. Weekly Tasks per Person</span>
+                                <span id="taskCountVal" class="text-brand-500 font-extrabold text-sm">40 tasks</span>
+                            </div>
+                            <input type="range" id="taskSlider" min="10" max="100" value="40" step="5" class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-brand-500">
+                        </div>
+                    </div>
+
+                    <!-- Simulator Output Display -->
+                    <div class="bg-gradient-to-br from-brand-600 to-brand-700 rounded-2xl p-6 text-white text-center shadow-lg space-y-4">
+                        <div>
+                            <div class="text-xs uppercase tracking-wider opacity-80">Estimated Hours Saved / Month</div>
+                            <div id="hoursSavedVal" class="text-4xl font-extrabold mt-1">210 hrs</div>
+                        </div>
+                        <div class="pt-4 border-t border-white/20 flex justify-around text-xs">
+                            <div>
+                                <div class="opacity-80">Efficiency Boost</div>
+                                <div id="efficiencyVal" class="font-bold text-base mt-0.5">+32%</div>
+                            </div>
+                            <div>
+                                <div class="opacity-80">Time Recovered</div>
+                                <div id="daysVal" class="font-bold text-base mt-0.5">26.2 Days</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold text-brand-600 dark:text-brand-400 tracking-wider uppercase mb-2">The Minds Behind Aura</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">Meet Our Leadership</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Member 1 -->
+                <div class="bg-white dark:bg-slate-800 rounded-3xl overflow-hidden border border-slate-200/70 dark:border-slate-700/60 shadow-sm hover:shadow-xl transition duration-300 group">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80" alt="Alexandra Vance" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-slate-900 dark:text-white text-lg">Alexandra Vance</h3>
+                        <p class="text-xs font-semibold text-brand-500 mb-3">Co-Founder & CEO</p>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 mb-4">Ex-Apple design lead passionate about creating human-centric product architectures.</p>
+                        <div class="flex gap-3 text-slate-400 text-sm">
+                            <a href="#" class="hover:text-brand-500 transition"><i class="fa-brands fa-twitter"></i></a>
+                            <a href="#" class="hover:text-brand-500 transition"><i class="fa-brands fa-linkedin"></i></a>
+                            <a href="#" class="hover:text-brand-500 transition"><i class="fa-brands fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Member 2 -->
+                <div class="bg-white dark:bg-slate-800 rounded-3xl overflow-hidden border border-slate-200/70 dark:border-slate-700/60 shadow-sm hover:shadow-xl transition duration-300 group">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop&q=80" alt="Marcus Chen" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-slate-900 dark:text-white text-lg">Marcus Chen</h3>
+                        <p class="text-xs font-semibold text-brand-500 mb-3">Co-Founder & CTO</p>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 mb-4">Distributed systems engineer with 10+ years optimizing real-time mobile sync engines.</p>
+                        <div class="flex gap-3 text-slate-400 text-sm">
+                            <a href="#" class="hover:text-brand-500 transition"><i class="fa-brands fa-twitter"></i></a>
+                            <a href="#" class="hover:text-brand-500 transition"><i class="fa-brands fa-linkedin"></i></a>
+                            <a href="#" class="hover:text-brand-500 transition"><i class="fa-brands fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Member 3 -->
+                <div class="bg-white dark:bg-slate-800 rounded-3xl overflow-hidden border border-slate-200/70 dark:border-slate-700/60 shadow-sm hover:shadow-xl transition duration-300 group">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&auto=format&fit=crop&q=80" alt="Sophia Al-Mansoor" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-slate-900 dark:text-white text-lg">Sophia Al-Mansoor</h3>
+                        <p class="text-xs font-semibold text-brand-500 mb-3">Head of Product AI</p>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 mb-4">Specializing in contextual machine learning models designed for lightweight on-device execution.</p>
+                        <div class="flex gap-3 text-slate-400 text-sm">
+                            <a href="#" class="hover:text-brand-500 transition"><i class="fa-brands fa-twitter"></i></a>
+                            <a href="#" class="hover:text-brand-500 transition"><i class="fa-brands fa-linkedin"></i></a>
+                            <a href="#" class="hover:text-brand-500 transition"><i class="fa-brands fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Member 4 -->
+                <div class="bg-white dark:bg-slate-800 rounded-3xl overflow-hidden border border-slate-200/70 dark:border-slate-700/60 shadow-sm hover:shadow-xl transition duration-300 group">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&auto=format&fit=crop&q=80" alt="Liam O'Connor" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-slate-900 dark:text-white text-lg">Liam O'Connor</h3>
+                        <p class="text-xs font-semibold text-brand-500 mb-3">VP of Design</p>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 mb-4">Obsessed with micro-interactions, smooth animation, and modern UI aesthetic polish.</p>
+                        <div class="flex gap-3 text-slate-400 text-sm">
+                            <a href="#" class="hover:text-brand-500 transition"><i class="fa-brands fa-twitter"></i></a>
+                            <a href="#" class="hover:text-brand-500 transition"><i class="fa-brands fa-linkedin"></i></a>
+                            <a href="#" class="hover:text-brand-500 transition"><i class="fa-brands fa-dribbble"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Culture & Tech Stack Section -->
+    <section class="py-20 bg-slate-100/50 dark:bg-slate-900/50 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold text-brand-600 dark:text-brand-400 tracking-wider uppercase mb-2">Our Engineering</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">The Technology Powering Aura</p>
+            </div>
+
+            <!-- Interactive Tech Stack Tabs Grid -->
+            <div class="grid md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700/60 text-center hover:border-brand-500 transition">
+                    <i class="fa-brands fa-react text-3xl text-sky-400 mb-3"></i>
+                    <h4 class="font-bold text-slate-900 dark:text-white text-sm">React Native & Swift</h4>
+                    <p class="text-[11px] text-slate-500 mt-1">Ultra-fluid 60fps native UI performance</p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700/60 text-center hover:border-brand-500 transition">
+                    <i class="fa-solid fa-brain text-3xl text-accent-500 mb-3"></i>
+                    <h4 class="font-bold text-slate-900 dark:text-white text-sm">On-Device AI Engine</h4>
+                    <p class="text-[11px] text-slate-500 mt-1">Smart context with full user privacy</p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700/60 text-center hover:border-brand-500 transition">
+                    <i class="fa-solid fa-cloud-bolt text-3xl text-brand-500 mb-3"></i>
+                    <h4 class="font-bold text-slate-900 dark:text-white text-sm">Edge Serverless Cloud</h4>
+                    <p class="text-[11px] text-slate-500 mt-1">Sub-10ms global database sync</p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700/60 text-center hover:border-brand-500 transition">
+                    <i class="fa-solid fa-shield-halved text-3xl text-emerald-500 mb-3"></i>
+                    <h4 class="font-bold text-slate-900 dark:text-white text-sm">Zero-Knowledge Vault</h4>
+                    <p class="text-[11px] text-slate-500 mt-1">End-to-End Client side encryption</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA & Download Section -->
+    <section id="download" class="py-20 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div class="bg-gradient-to-r from-brand-600 to-accent-600 rounded-3xl p-10 sm:p-16 text-white shadow-2xl">
+                <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4">Ready to Transform Your Workflow?</h2>
+                <p class="text-base sm:text-lg opacity-90 max-w-2xl mx-auto mb-8">
+                    Join over 500,000 creators, managers, and thinkers who rely on Aura every day.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#" class="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white text-slate-900 font-bold flex items-center justify-center gap-3 hover:bg-slate-100 transition shadow-lg">
+                        <i class="fa-brands fa-apple text-2xl"></i> App Store
+                    </a>
+                    <a href="#" class="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-slate-900 text-white font-bold flex items-center justify-center gap-3 hover:bg-slate-800 transition shadow-lg">
+                        <i class="fa-brands fa-google-play text-2xl"></i> Google Play
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Footer Section -->
+    <footer id="contact" class="bg-slate-900 text-slate-300 pt-16 pb-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-12 gap-8 mb-12">
+                <div class="md:col-span-5 space-y-4">
+                    <a href="index.html" class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-brand-500 flex items-center justify-center text-white font-bold">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <span class="text-xl font-bold text-white">Aura</span>
+                    </a>
+                    <p class="text-slate-400 text-sm max-w-sm">
+                        Redefining mobile productivity with power, elegance, and artificial intelligence at your fingertips.
+                    </p>
+                    <div class="flex items-center gap-4 text-slate-400">
+                        <a href="#" class="hover:text-white transition"><i class="fa-brands fa-twitter text-lg"></i></a>
+                        <a href="#" class="hover:text-white transition"><i class="fa-brands fa-instagram text-lg"></i></a>
+                        <a href="#" class="hover:text-white transition"><i class="fa-brands fa-github text-lg"></i></a>
+                        <a href="#" class="hover:text-white transition"><i class="fa-brands fa-linkedin text-lg"></i></a>
+                    </div>
+                </div>
+
+                <div class="md:col-span-7 space-y-4">
+                    <h4 class="text-white font-semibold text-sm">Get in Touch with our Team</h4>
+                    <form onsubmit="handleContact(event)" class="flex flex-col sm:flex-row gap-2 max-w-md">
+                        <input type="email" required placeholder="Enter your email" class="px-4 py-3 rounded-xl bg-slate-800 text-white placeholder-slate-500 border border-slate-700 focus:outline-none focus:border-brand-500 text-sm flex-1">
+                        <button type="submit" class="px-6 py-3 rounded-xl bg-brand-600 text-white font-semibold text-sm hover:bg-brand-500 transition">Subscribe</button>
+                    </form>
+                    <p id="contactMsg" class="text-xs text-emerald-400 hidden">Thanks! We will reach out shortly.</p>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+                <p>&copy; 2026 Aura Inc. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-slate-400 transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-slate-400 transition">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle Handler
+        const themeToggle = document.getElementById('themeToggle');
+        const themeToggleMobile = document.getElementById('themeToggleMobile');
+
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        themeToggle?.addEventListener('click', toggleTheme);
+        themeToggleMobile?.addEventListener('click', toggleTheme);
+
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Interactive Growth Calculator Logic
+        const teamSlider = document.getElementById('teamSlider');
+        const taskSlider = document.getElementById('taskSlider');
+        const teamCountVal = document.getElementById('teamCountVal');
+        const taskCountVal = document.getElementById('taskCountVal');
+        const hoursSavedVal = document.getElementById('hoursSavedVal');
+        const efficiencyVal = document.getElementById('efficiencyVal');
+        const daysVal = document.getElementById('daysVal');
+
+        function calculateImpact() {
+            const members = parseInt(teamSlider.value);
+            const tasks = parseInt(taskSlider.value);
+
+            teamCountVal.textContent = `${members} members`;
+            taskCountVal.textContent = `${tasks} tasks`;
+
+            // Simulation formula
+            const hoursSaved = Math.round(members * tasks * 0.21);
+            const efficiency = Math.min(45, Math.round(20 + (tasks * 0.25)));
+            const daysSaved = (hoursSaved / 8).toFixed(1);
+
+            hoursSavedVal.textContent = `${hoursSaved} hrs`;
+            efficiencyVal.textContent = `+${efficiency}%`;
+            daysVal.textContent = `${daysSaved} Days`;
+        }
+
+        teamSlider?.addEventListener('input', calculateImpact);
+        taskSlider?.addEventListener('input', calculateImpact);
+
+        function handleContact(e) {
+            e.preventDefault();
+            const msg = document.getElementById('contactMsg');
+            msg.classList.remove('hidden');
+            e.target.reset();
+            setTimeout(() => msg.classList.add('hidden'), 4000);
+        }
+    </script>
+</body>
+</html>
