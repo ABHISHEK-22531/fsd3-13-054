@@ -12,4 +12,5 @@
   }
 7. create prg1.js in folder  
 8. add folderName/node_modules in .gitignore
-9. send method is used to revert back contents to the clients , it may be html ,json, htmlfile, plane Text . We can also add status code with status function it can be chain any function with
+9. send method is used to revert back contents to the clients , it may be html ,json, htmlfile, plane Text . We can also add status code with status function it can be chain any function 
+10. Create a new landing page for out project.
